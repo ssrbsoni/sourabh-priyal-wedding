@@ -27,8 +27,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Lora:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Lora:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Lora:wght@400;500&family=Cinzel:wght@500&family=EB+Garamond&family=Pinyon+Script&family=Tiro+Devanagari+Sanskrit&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Lora:wght@400;500&family=Cinzel:wght@500&family=EB+Garamond&family=Pinyon+Script&family=Tiro+Devanagari+Sanskrit&display=swap"></noscript>
 
 <style>
 :root{
@@ -36,7 +36,11 @@
   --maroon:#6B1E2E; --maroon-2:#4A1420; --ink:#3A2A22; --muted:#6E5A4A;
   --serif:'Cormorant Garamond','Cormorant',Garamond,'Times New Roman',serif;
   --body:'Lora',Georgia,'Times New Roman',serif;
-  --deva:'Tiro Devanagari Hindi','Noto Serif Devanagari','Kohinoor Devanagari','Mangal',serif;
+  /* used only for the event-card details and the closing line */
+  --script:'Pinyon Script','Snell Roundhand','Apple Chancery',cursive;
+  --caps:'Cinzel','Trajan Pro',Optima,'Times New Roman',serif;
+  --garamond:'EB Garamond',Garamond,'Iowan Old Style',Georgia,serif;
+  --deva:'Tiro Devanagari Sanskrit','Tiro Devanagari Hindi','Noto Serif Devanagari','Kohinoor Devanagari','Mangal',serif;
   --col:480px;
 }
 *{box-sizing:border-box}
@@ -147,12 +151,12 @@ p,h2,h3{text-wrap:balance}
 
 /* ---------- 1. blessing ---------- */
 .blessing{padding-top:84px;text-align:center}
-.om{font:2.8rem/1 var(--deva);color:var(--gold-text);margin:0}
-.ganesha-row{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin:10px 0 4px}
-.ganesha-art{width:150px;aspect-ratio:140/150}
-.ganesha{display:block;width:100%;height:100%;color:var(--gold)}
-.diya{width:46px;height:auto;margin-bottom:6px}
-.mantra{font:1.45rem/1.3 var(--deva);color:var(--gold-text);margin:4px 0 0}
+.om-img{display:block;width:clamp(100px,29vw,124px);height:auto;margin:0 auto 6px}
+.mantra-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px -8px 0}
+.mantra-row .diya{flex:none;width:34px;height:auto;margin-top:-6px}
+/* Vakratunda mantra: two fixed lines, sized so the longer line always fits between the diyas */
+.shloka{margin:0;font:400 clamp(16px,4.6vw,20px)/1.8 var(--deva);color:var(--gold-text)}
+.shloka span{display:block;white-space:nowrap}
 .invite-card{margin:30px auto 0;padding:34px 12px 30px;text-wrap:balance;border:1px solid var(--gold);outline:1px solid rgba(184,137,59,.4);outline-offset:5px;background:rgba(255,255,255,.35);border-radius:2px}
 .invite-line{font:italic 500 1.3rem/1.45 var(--serif);color:var(--muted);margin:0 0 22px}
 .name{font:italic 600 3.2rem/1 var(--serif);color:var(--gold-text);margin:0;letter-spacing:.01em}
@@ -189,8 +193,8 @@ p,h2,h3{text-wrap:balance}
 .ev h3{margin:8px 0 14px;font:italic 600 2.1rem/1.05 var(--serif)}
 .ev dl{margin:0;display:grid;gap:10px}
 .ev dl div{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:baseline}
-.ev dt{font:600 .7rem/1.4 var(--body);letter-spacing:.18em;text-transform:uppercase;opacity:.75}
-.ev dd{margin:0;font-size:1rem;line-height:1.45}
+.ev dt{font:500 .64rem/1.7 var(--caps);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.ev dd{margin:0;font:400 1.06rem/1.45 var(--garamond)}
 .ev-haldi{background:#FFF6D8;color:#4F3A0E}.ev-haldi h3{color:#9A5B00}
 .ev-sangeet{background:#1D2052;color:#F3E6EF}.ev-sangeet h3{color:#F0C2AE}
 .ev-milan{background:#7E1B22;color:#FFF0D4}.ev-milan h3{color:#FFC65C}
@@ -238,46 +242,36 @@ p,h2,h3{text-wrap:balance}
 .tips b{display:block;font:600 1.15rem/1.3 var(--serif);color:var(--maroon)}
 .tips span{display:block;font-size:.95rem;color:var(--muted);line-height:1.5}
 
-/* ---------- 5. rsvp ---------- */
-.rsvp form{display:grid;gap:18px;margin-top:8px}
-.field>label,.field legend{display:block;font:600 .78rem/1.3 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;padding:0}
-.field fieldset{border:0;margin:0;padding:0}
-input,select,textarea{
-  width:100%;min-height:50px;padding:12px 14px;font:16px/1.4 var(--body);color:var(--ink);
-  background:rgba(255,255,255,.75);border:1px solid rgba(184,137,59,.7);border-radius:8px;appearance:none;-webkit-appearance:none;
-}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238A611E' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
-textarea{min-height:110px;resize:vertical}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);box-shadow:0 0 0 3px rgba(107,30,46,.15)}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
-.row2>*{min-width:0}
-.chips{display:grid;gap:10px}
-.chip{position:relative;display:flex;align-items:center;gap:12px;min-height:52px;padding:10px 14px;border:1px solid rgba(184,137,59,.7);border-radius:10px;background:rgba(255,255,255,.6);cursor:pointer;font-size:1rem}
-.chip input{position:absolute;opacity:0;width:1px;height:1px;min-height:0}
-.chip i{flex:none;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:5px;display:grid;place-items:center;background:#fff}
-.chip i::after{content:"";width:10px;height:6px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px);opacity:0}
-.chip input:checked+i{background:var(--maroon);border-color:var(--maroon)}
-.chip input:checked+i::after{opacity:1}
-.chip:has(input:checked){border-color:var(--maroon);background:#FFF8EC}
-.chip input:focus-visible+i{outline:3px solid #C77D1A;outline-offset:2px}
-.chip small{display:block;color:var(--muted);font-size:.82rem}
-.form-err{color:#9B1C1C;font-size:.95rem;margin:0;min-height:1.2em}
-.hp{position:absolute;left:-9999px}
-.rsvp .actions{display:grid;gap:12px;margin-top:4px}
-.rsvp .actions .btn{width:100%}
-.or{text-align:center;color:var(--muted);font-style:italic;margin:4px 0}
-.thanks{text-align:center;padding:30px 10px;display:none}
-.thanks.show{display:block;animation:fadeup .8s ease}
-.thanks h3{font:italic 600 2.2rem/1.1 var(--serif);color:var(--maroon);margin:10px 0}
-@keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* ---------- 5. rsvp (embedded Google Form) ---------- */
+.gform{margin:6px -10px 0;padding:6px;border-radius:14px;background:#fff;box-shadow:0 0 0 1px var(--gold),0 10px 26px rgba(74,20,32,.12)}
+.gform iframe{display:block;width:100%;height:1640px;border:0;border-radius:10px;background:#fff;transition:height .4s ease}
+.gform.sent iframe{height:460px}
+.or{text-align:center;color:var(--muted);font-style:italic;margin:22px 0 12px}
+.rsvp .btn.wa{width:100%}
 
 /* ---------- 6. closing ---------- */
 .closing{padding:0 0 70px;background:#0B1231;color:#F6EBD6;text-align:center}
 .closing .scene svg{display:block;width:100%;height:auto}
 .closing .medallion{width:170px;height:170px;margin:-85px auto 0;position:relative}
-.closing p.big{font:italic 500 1.9rem/1.25 var(--serif);margin:28px 28px 26px;color:#F6E3BE}
+.closing p.big{font:400 2.5rem/1.2 var(--script);margin:28px 22px 26px;color:#F6E3BE}
 .closing .btn{background:transparent;color:#F6E3BE;border-color:var(--gold-soft);box-shadow:none}
 .credits{margin-top:34px;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(246,235,214,.55)}
+
+/* ---------- scroll cue (after the envelope opens) ---------- */
+.scroll-cue{
+  position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom));z-index:45;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:4px;min-width:64px;min-height:56px;padding:10px 18px 8px;
+  border:0;border-radius:999px;background:rgba(251,247,239,.9);color:var(--maroon);cursor:pointer;
+  box-shadow:0 0 0 1px rgba(184,137,59,.7),0 0 0 4px rgba(251,247,239,.6),0 8px 20px rgba(74,20,32,.2);
+  font:600 .68rem/1 var(--body);letter-spacing:.3em;text-transform:uppercase;text-indent:.3em;
+  opacity:0;visibility:hidden;transition:opacity .5s ease,visibility 0s .5s;-webkit-tap-highlight-color:transparent;
+}
+.scroll-cue.on{opacity:1;visibility:visible;transition:opacity .9s ease .3s;animation:cueBob 2.4s ease-in-out 1.2s infinite}
+.scroll-cue svg{width:18px;height:22px;color:var(--gold)}
+.scroll-cue .chev{transform-box:fill-box;animation:cueChev 1.6s ease-in-out infinite}
+.scroll-cue .chev+.chev{animation-delay:.25s}
+@keyframes cueChev{0%{opacity:0;transform:translateY(-4px)}45%{opacity:1}100%{opacity:0;transform:translateY(5px)}}
+@keyframes cueBob{0%,100%{transform:translateX(-50%)}50%{transform:translate(-50%,-4px)}}
 
 /* ---------- petals / confetti ---------- */
 .petals{position:fixed;inset:0;pointer-events:none;z-index:90;overflow:hidden}
@@ -291,7 +285,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
 }
 
 /* ---------- image slots: real artwork replaces the SVG fallback once it loads ---------- */
-.ganesha-art,.closing .scene{position:relative}
+.closing .scene{position:relative}
 .art>.art-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease}
 .art>.art-img.contain{object-fit:contain}
 .art.has-img>.art-img{opacity:1}
@@ -423,8 +417,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
 
   <!-- ======= 1. BLESSING ======= -->
   <section class="blessing" id="blessing" aria-labelledby="inviteTitle">
-    <p class="om reveal" lang="hi">ॐ</p>
-    <div class="ganesha-row reveal" style="--d:1">
+    <img class="om-img reveal" src="assets/ganesha-om.webp" alt="Lord Ganesha drawn in the form of Om" width="364" height="450" fetchpriority="high">
+    <div class="mantra-row reveal" style="--d:1">
       <svg class="diya scene" viewBox="0 0 50 60" aria-hidden="true">
         <circle cx="25" cy="22" r="18" fill="url(#haloG)" class="glow"/>
         <path class="flame" d="M25 8c5 8 7 13 7 17a7 7 0 0 1-14 0c0-4 2-9 7-17z" fill="url(#flameG)"/>
@@ -432,40 +426,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
         <path d="M10 40q15 6 30 0" fill="none" stroke="#FCE3A4" stroke-width="1.2"/>
         <path d="M18 52h14l-3 5h-8z" fill="#A87426"/>
       </svg>
-      <div class="ganesha-art art">
-        <img class="art-img contain" data-art="assets/img/ganesha.png" alt="Lord Ganesha" decoding="async" loading="lazy" onload="this.parentNode.classList.add('has-img')" onerror="this.remove()">
-      <svg class="ganesha fallback" viewBox="0 0 140 150" role="img" aria-label="Line illustration of Lord Ganesha">
-        <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="70" cy="70" r="62" stroke-width=".8" opacity=".5"/>
-          <circle cx="70" cy="70" r="56" stroke-width=".5" stroke-dasharray="2 4" opacity=".6"/>
-          <!-- crown -->
-          <path d="M52 40l4-14 7 6 7-16 7 16 7-6 4 14z"/>
-          <path d="M52 40h36M55 35h30"/>
-          <circle cx="70" cy="12" r="2.4" fill="currentColor"/>
-          <!-- head -->
-          <path d="M52 40c-4 6-5 14-3 22 2 7 7 11 12 13M88 40c4 6 5 14 3 22-2 7-7 11-12 13"/>
-          <!-- ears -->
-          <path d="M50 46c-12-8-30-4-32 10-2 13 8 26 24 24 5-1 8-4 9-8"/>
-          <path d="M90 46c12-8 30-4 32 10 2 13-8 26-24 24-5-1-8-4-9-8"/>
-          <path d="M44 54c-8-2-16 2-16 9M96 54c8-2 16 2 16 9" stroke-width="1" opacity=".7"/>
-          <!-- eyes & tilak -->
-          <path d="M58 55q4-3 8 0M74 55q4-3 8 0"/>
-          <path d="M70 43v7" stroke-width="2.2"/><circle cx="70" cy="42" r="1.3" fill="currentColor"/>
-          <!-- trunk -->
-          <path d="M63 62c-2 12 0 26 6 34 6 8 16 10 21 4 4-5 0-11-5-9"/>
-          <path d="M77 62c0 10 1 18 4 24"/>
-          <!-- tusk -->
-          <path d="M80 72l9 5"/>
-          <!-- body hint + modak hands -->
-          <path d="M44 88c-8 10-10 24-4 36M96 88c8 10 10 24 4 36"/>
-          <path d="M40 124q30 12 60 0"/>
-          <circle cx="102" cy="104" r="5"/><path d="M99 101q3-4 6 0"/>
-          <path d="M34 100q-4 4-2 9 5 3 9-1" />
-          <!-- lotus seat -->
-          <path d="M70 146c-8-6-18-8-30-6 8 6 18 8 30 6zM70 146c8-6 18-8 30-6-8 6-18 8-30 6zM70 146c-3-6-3-12 0-16 3 4 3 10 0 16z"/>
-        </g>
-      </svg>
-      </div>
+      <p class="shloka" lang="sa">
+        <span>वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।</span>
+        <span>निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥</span>
+      </p>
       <svg class="diya scene" viewBox="0 0 50 60" aria-hidden="true">
         <circle cx="25" cy="22" r="18" fill="url(#haloG)" class="glow" style="animation-delay:.7s"/>
         <path class="flame" style="animation-delay:.5s" d="M25 8c5 8 7 13 7 17a7 7 0 0 1-14 0c0-4 2-9 7-17z" fill="url(#flameG)"/>
@@ -474,7 +438,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
         <path d="M18 52h14l-3 5h-8z" fill="#A87426"/>
       </svg>
     </div>
-    <p class="mantra reveal" style="--d:2" lang="hi">श्री गणेशाय नमः</p>
 
     <div class="invite-card">
       <h1 class="sr" id="inviteTitle">Wedding invitation of Sourabh and Priyal</h1>
@@ -501,7 +464,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
       <div class="tile"><b id="cdM">--</b><span>Minutes</span></div>
       <div class="tile"><b id="cdS">--</b><span>Seconds</span></div>
     </div>
-    <a class="btn reveal" style="--d:3" href="wedding.ics" download="sourabh-priyal-wedding.ics">
+    <a class="btn reveal" style="--d:3" href="wedding.ics" download="priyal-sourabh-wedding.ics">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>
       <span>Add to Calendar</span>
     </a>
@@ -951,59 +914,36 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
     <h2 class="h2" id="rsvpTitle">RSVP</h2>
     <svg class="divider" aria-hidden="true"><use href="#lotusDiv"/></svg>
 
-    <form id="rsvpForm" novalidate>
-      <div class="field"><label for="fName">Your name</label><input id="fName" name="name" autocomplete="name" required maxlength="120"></div>
-      <div class="row2">
-        <div class="field"><label for="fPhone">Phone</label><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="+91"></div>
-        <div class="field"><label for="fGuests">Guests</label>
-          <select id="fGuests" name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
-      </div>
-      <div class="field"><fieldset>
-        <legend>Events you'll attend</legend>
-        <div class="chips">
-          <label class="chip"><input type="checkbox" name="events" value="Haldi" checked><i></i><span><span>Haldi</span><small>1 Dec · 11:00 AM</small></span></label>
-          <label class="chip"><input type="checkbox" name="events" value="Sangeet" checked><i></i><span><span>Sangeet</span><small>1 Dec · 7:00 PM</small></span></label>
-          <label class="chip"><input type="checkbox" name="events" value="Baraat, Varmala & Phere" checked><i></i><span><span>Baraat · Varmala · Phere</span><small>2 Dec · 9:00 AM</small></span></label>
-          <label class="chip"><input type="checkbox" name="events" value="Reception" checked><i></i><span><span>Reception</span><small>2 Dec · 7:00 PM</small></span></label>
-        </div>
-      </fieldset></div>
-      <div class="field"><label for="fArrive">Arrival date &amp; time</label><input id="fArrive" name="arrival" required maxlength="120" placeholder="e.g. 30 Nov, around 4 PM"></div>
-      <div class="field"><label for="fMsg">A message for the couple</label><textarea id="fMsg" name="message" maxlength="1000"></textarea></div>
-      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <p class="form-err" id="formErr" role="alert"></p>
-      <div class="actions">
-        <button class="btn" type="submit" id="rsvpSubmit"><span>Send RSVP</span></button>
-        <p class="or">or</p>
-        <a class="btn wa" id="waBtn" href="#" target="_blank" rel="noopener">
+    <div class="gform">
+      <iframe id="gform" title="RSVP form" data-src="https://docs.google.com/forms/d/e/1FAIpQLSe821cUvpJjJ-rwBVErptkjqlT0qdAaoxY0QzjL-pvpIjJVGQ/viewform?embedded=true" loading="lazy">Loading…</iframe>
+    </div>
+    <p class="or">or</p>
+    <div class="center">
+    <a class="btn wa" id="waBtn" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.2z"/></svg>
           <span>RSVP on WhatsApp</span>
         </a>
-      </div>
-    </form>
-    <div class="thanks" id="thanks" role="status" tabindex="-1">
-      <svg class="divider" aria-hidden="true"><use href="#lotusDiv"/></svg>
-      <h3>Thank you!</h3>
-      <p>Your RSVP has reached us. We can't wait to celebrate with you in Udaipur.</p>
     </div>
   </section>
 
 </main>
 
+<button class="scroll-cue" id="scrollCue" type="button" aria-label="Scroll down to see the invitation">
+  <span>Scroll</span>
+  <svg viewBox="0 0 20 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="chev" d="M4 3l6 6 6-6"/><path class="chev" d="M4 11l6 6 6-6"/></svg>
+</button>
+
 <script>
 (() => {
   /* ======================= CONFIG — edit these ======================= */
   const CONFIG = {
-    // Paste the GOOGLE_FORM block printed by tools/google-form.gs here
-    GOOGLE_FORM: {
-      action: 'https://docs.google.com/forms/d/e/1FAIpQLSe821cUvpJjJ-rwBVErptkjqlT0qdAaoxY0QzjL-pvpIjJVGQ/formResponse',
-      entry: { name: 'entry.1082612796', phone: 'entry.1789039114', guests: 'entry.1673617065', events: 'entry.1999953341', arrival: 'entry.1921402833', message: 'entry.1168581455' }
-      // Responses sheet: https://docs.google.com/spreadsheets/d/146dacAbIulrzZ73okfXQ_G6nMdKqNUHNKCm1Hh--0gA/edit
-      // Edit form:       https://docs.google.com/forms/d/1do5F6TlHF1qn1ZTn1Ajd9VxjSBEbxJC4bYnwN21PFO0/edit
-    },
+    // RSVPs: the Google Form is embedded on the page. Responses land in the Sheet.
+    //   Responses sheet: https://docs.google.com/spreadsheets/d/146dacAbIulrzZ73okfXQ_G6nMdKqNUHNKCm1Hh--0gA/edit
+    //   Edit form:       https://docs.google.com/forms/d/1do5F6TlHF1qn1ZTn1Ajd9VxjSBEbxJC4bYnwN21PFO0/edit
     WHATSAPP_NUMBER: '',     // [PLACEHOLDER NUMBER] digits only with country code, e.g. '919876543210'
     MUSIC_SRC: 'assets/music.mp3', // royalty-free shehnai/santoor track; a gentle built-in santoor tune plays if missing
     WEDDING_START: '2026-12-01T11:00:00+05:30',
-    // Artwork you've added to assets/img/ (file names without extension), e.g. ['ganesha', 'haldi', 'couple']
+    // Artwork you've added to assets/img/ (file names without extension), e.g. ['haldi', 'couple']
     ART: []
   };
   /* =================================================================== */
@@ -1111,9 +1051,27 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
       document.body.classList.remove('locked');
       $('#inviteTitle').setAttribute('tabindex', '-1');
       $('#inviteTitle').focus({ preventScroll: true });
+      showScrollCue();
     }, reduce ? 500 : 2900);
     setTimeout(() => gate.remove(), reduce ? 1200 : 4000);
   }, { once: true });
+
+  /* ---------- scroll cue: a nudge to scroll, gone for good once the guest does ---------- */
+  const cue = $('#scrollCue');
+  function hideScrollCue() {
+    cue.classList.remove('on');
+    removeEventListener('scroll', onCueScroll);
+  }
+  function onCueScroll() { if (scrollY > 60) hideScrollCue(); }
+  function showScrollCue() {
+    if (scrollY > 60) return;
+    cue.classList.add('on');
+    addEventListener('scroll', onCueScroll, { passive: true });
+  }
+  cue.addEventListener('click', () => {
+    hideScrollCue();
+    window.scrollBy({ top: Math.round(innerHeight * 0.8), behavior: reduce ? 'auto' : 'smooth' });
+  });
 
   /* ---------- reveal on scroll + pause off-screen scenes ---------- */
   const revealIO = new IntersectionObserver(es => es.forEach(e => {
@@ -1172,65 +1130,25 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
     }
   });
 
-  /* ---------- RSVP → Google Form ---------- */
-  const form = $('#rsvpForm'), err = $('#formErr'), submit = $('#rsvpSubmit');
-  form.addEventListener('submit', async ev => {
-    ev.preventDefault();
-    err.textContent = '';
-    const fd = new FormData(form);
-    if (fd.get('website')) return; // honeypot
-    const data = {
-      name: fd.get('name').trim(),
-      phone: fd.get('phone').trim(),
-      guests: fd.get('guests'),
-      events: fd.getAll('events'),
-      arrival: fd.get('arrival').trim(),
-      message: fd.get('message').trim()
-    };
-    if (!data.name) { err.textContent = 'Please enter your name.'; return $('#fName').focus(); }
-    if (!/^[+\d][\d\s-]{6,18}$/.test(data.phone)) { err.textContent = 'Please enter a valid phone number.'; return $('#fPhone').focus(); }
-    if (!data.events.length) { err.textContent = 'Please choose at least one event.'; return; }
-    if (!data.arrival) { err.textContent = 'Please tell us when you plan to arrive.'; return $('#fArrive').focus(); }
-
-    const G = CONFIG.GOOGLE_FORM;
-    if (!G.action) {
-      // Form not connected yet: send the RSVP over WhatsApp instead
-      const summary = `RSVP – Sourabh & Priyal's wedding\nName: ${data.name}\nPhone: ${data.phone}\nGuests: ${data.guests}\nEvents: ${data.events.join(', ')}\nArriving: ${data.arrival}` + (data.message ? `\nMessage: ${data.message}` : '');
-      window.open(waLink(summary), '_blank', 'noopener');
-      return done();
-    }
-    const body = new URLSearchParams();
-    body.append(G.entry.name, data.name);
-    body.append(G.entry.phone, data.phone);
-    body.append(G.entry.guests, data.guests);
-    data.events.forEach(v => body.append(G.entry.events, v));
-    body.append(G.entry.arrival, data.arrival);
-    if (data.message) body.append(G.entry.message, data.message);
-    submit.disabled = true; submit.firstElementChild.textContent = 'Sending…';
-    // Google Forms never lets a website read its reply, so don't wait on it (in some phone browsers it never settles).
-    // sendBeacon hands the RSVP to the browser to deliver even if the guest closes the page straight away.
-    let queued = false;
-    try { queued = navigator.sendBeacon && navigator.sendBeacon(G.action, body); } catch (e) {}
-    if (!queued) {
-      try {
-        await Promise.race([
-          fetch(G.action, { method: 'POST', mode: 'no-cors', body, keepalive: true }),
-          new Promise(r => setTimeout(r, 3000))
-        ]);
-      } catch (e) {
-        submit.disabled = false; submit.firstElementChild.textContent = 'Send RSVP';
-        err.textContent = "Sorry, that didn't go through. Please check your connection, or RSVP on WhatsApp below.";
-        return;
-      }
-    }
-    done();
-  });
-  function done() {
-    form.hidden = true;
-    const t = $('#thanks'); t.classList.add('show'); t.focus({ preventScroll: true });
-    t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  /* ---------- RSVP: embedded Google Form ---------- */
+  // Loaded only when the guest nears the RSVP, so it never slows the invite down.
+  // Google reloads the frame once while opening the form, so only a reload that comes 8 s+ after the form
+  // first appeared counts as a submission (Google shows its "Thank you" page), and that's when we celebrate.
+  const gframe = $('#gform');
+  let shownAt = 0, sent = false;
+  gframe.addEventListener('load', () => {
+    if (!gframe.src || sent) return;
+    const now = Date.now();
+    if (!shownAt) { shownAt = now; return; }
+    if (now - shownAt < 8000) return;
+    sent = true;
+    gframe.parentNode.classList.add('sent');
+    gframe.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
     burst(60, 'gold');
-  }
+  });
+  new IntersectionObserver((es, o) => {
+    if (es[0].isIntersecting) { gframe.src = gframe.dataset.src; o.disconnect(); }
+  }, { rootMargin: '800px' }).observe(gframe);
 })();
 </script>
 </body>
