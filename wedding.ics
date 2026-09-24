@@ -1,0 +1,63 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Sourabh & Priyal//Wedding//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Sourabh & Priyal's Wedding
+BEGIN:VEVENT
+UID:haldi-2026@sourabh-priyal-wedding
+DTSTAMP:20260924T000000Z
+DTSTART:20261201T053000Z
+DTEND:20261201T083000Z
+SUMMARY:Rangon Ki Subah — Haldi
+DESCRIPTION:Dress code: Playful pastels and cheerful daytime colours — Sourabh & Priyal's wedding celebrations
+LOCATION:Ceremony Resort\, Shobhagpura\, Udaipur\, Rajasthan
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sangeet-2026@sourabh-priyal-wedding
+DTSTAMP:20260924T000000Z
+DTSTART:20261201T133000Z
+DTEND:20261201T180000Z
+SUMMARY:Mehfil After Dark — Sangeet
+DESCRIPTION:Dress code: Glamorous festive wear with a touch of sparkle — Sourabh & Priyal's wedding celebrations
+LOCATION:Ceremony Resort\, Shobhagpura\, Udaipur\, Rajasthan
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:milan-2026@sourabh-priyal-wedding
+DTSTAMP:20260924T000000Z
+DTSTART:20261202T033000Z
+DTEND:20261202T083000Z
+SUMMARY:Shubh Milan — Baraat\, Varmala & Phere
+DESCRIPTION:Dress code: Traditional Indian attire — Sourabh & Priyal's wedding celebrations
+LOCATION:Ceremony Resort\, Shobhagpura\, Udaipur\, Rajasthan
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:gala-2026@sourabh-priyal-wedding
+DTSTAMP:20260924T000000Z
+DTSTART:20261202T133000Z
+DTEND:20261202T180000Z
+SUMMARY:The Ivory Gala — Reception
+DESCRIPTION:Dress code: Elegant evening formals — Sourabh & Priyal's wedding celebrations
+LOCATION:Ceremony Resort\, Shobhagpura\, Udaipur\, Rajasthan
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR
