@@ -261,7 +261,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
 .chip:has(input:checked){border-color:var(--maroon);background:#FFF8EC}
 .chip input:focus-visible+i{outline:3px solid #C77D1A;outline-offset:2px}
 .chip small{display:block;color:var(--muted);font-size:.82rem}
-.hint{margin:-10px 0 0;font-size:.85rem;color:var(--muted);font-style:italic}
 .form-err{color:#9B1C1C;font-size:.95rem;margin:0;min-height:1.2em}
 .hp{position:absolute;left:-9999px}
 .rsvp .actions{display:grid;gap:12px;margin-top:4px}
@@ -968,11 +967,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
           <label class="chip"><input type="checkbox" name="events" value="Reception" checked><i></i><span><span>Reception</span><small>2 Dec · 7:00 PM</small></span></label>
         </div>
       </fieldset></div>
-      <div class="row2">
-        <div class="field"><label for="fArrDate">Arrival date</label><input id="fArrDate" name="arrival_date" type="date" min="2026-11-30" max="2026-12-02" required></div>
-        <div class="field"><label for="fArrTime">Arrival time</label><input id="fArrTime" name="arrival_time" type="time" required></div>
-      </div>
-      <p class="hint">Arrivals on 30 Nov, 1 Dec or 2 Dec</p>
+      <div class="field"><label for="fArrive">Arrival date &amp; time</label><input id="fArrive" name="arrival" required maxlength="120" placeholder="e.g. 30 Nov, around 4 PM"></div>
       <div class="field"><label for="fMsg">A message for the couple</label><textarea id="fMsg" name="message" maxlength="1000"></textarea></div>
       <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <p class="form-err" id="formErr" role="alert"></p>
@@ -1001,7 +996,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
     // Paste the GOOGLE_FORM block printed by tools/google-form.gs here
     GOOGLE_FORM: {
       action: 'https://docs.google.com/forms/d/e/1FAIpQLSe821cUvpJjJ-rwBVErptkjqlT0qdAaoxY0QzjL-pvpIjJVGQ/formResponse',
-      entry: { name: 'entry.1082612796', phone: 'entry.1789039114', guests: 'entry.1673617065', events: 'entry.1999953341', arrival: 'entry.337934375', message: 'entry.1168581455' }
+      entry: { name: 'entry.1082612796', phone: 'entry.1789039114', guests: 'entry.1673617065', events: 'entry.1999953341', arrival: 'entry.1921402833', message: 'entry.1168581455' }
       // Responses sheet: https://docs.google.com/spreadsheets/d/146dacAbIulrzZ73okfXQ_G6nMdKqNUHNKCm1Hh--0gA/edit
       // Edit form:       https://docs.google.com/forms/d/1do5F6TlHF1qn1ZTn1Ajd9VxjSBEbxJC4bYnwN21PFO0/edit
     },
@@ -1189,22 +1184,18 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
       phone: fd.get('phone').trim(),
       guests: fd.get('guests'),
       events: fd.getAll('events'),
-      arrDate: fd.get('arrival_date'),
-      arrTime: fd.get('arrival_time'),
+      arrival: fd.get('arrival').trim(),
       message: fd.get('message').trim()
     };
     if (!data.name) { err.textContent = 'Please enter your name.'; return $('#fName').focus(); }
     if (!/^[+\d][\d\s-]{6,18}$/.test(data.phone)) { err.textContent = 'Please enter a valid phone number.'; return $('#fPhone').focus(); }
     if (!data.events.length) { err.textContent = 'Please choose at least one event.'; return; }
-    if (!['2026-11-30', '2026-12-01', '2026-12-02'].includes(data.arrDate)) { err.textContent = 'Please pick an arrival date: 30 Nov, 1 Dec or 2 Dec.'; return $('#fArrDate').focus(); }
-    if (!data.arrTime) { err.textContent = 'Please add your arrival time.'; return $('#fArrTime').focus(); }
-    const [y, mo, d] = data.arrDate.split('-'), [hh, mm] = data.arrTime.split(':');
-    const arrivalText = new Date(+y, mo - 1, +d, +hh, +mm).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
+    if (!data.arrival) { err.textContent = 'Please tell us when you plan to arrive.'; return $('#fArrive').focus(); }
 
     const G = CONFIG.GOOGLE_FORM;
     if (!G.action) {
       // Form not connected yet: send the RSVP over WhatsApp instead
-      const summary = `RSVP – Sourabh & Priyal's wedding\nName: ${data.name}\nPhone: ${data.phone}\nGuests: ${data.guests}\nEvents: ${data.events.join(', ')}\nArriving: ${arrivalText}` + (data.message ? `\nMessage: ${data.message}` : '');
+      const summary = `RSVP – Sourabh & Priyal's wedding\nName: ${data.name}\nPhone: ${data.phone}\nGuests: ${data.guests}\nEvents: ${data.events.join(', ')}\nArriving: ${data.arrival}` + (data.message ? `\nMessage: ${data.message}` : '');
       window.open(waLink(summary), '_blank', 'noopener');
       return done();
     }
@@ -1213,18 +1204,26 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
     body.append(G.entry.phone, data.phone);
     body.append(G.entry.guests, data.guests);
     data.events.forEach(v => body.append(G.entry.events, v));
-    // Google date-time questions take their parts as separate fields
-    [['year', y], ['month', +mo], ['day', +d], ['hour', hh], ['minute', mm]].forEach(([k, v]) => body.append(`${G.entry.arrival}_${k}`, v));
+    body.append(G.entry.arrival, data.arrival);
     if (data.message) body.append(G.entry.message, data.message);
     submit.disabled = true; submit.firstElementChild.textContent = 'Sending…';
-    try {
-      // Google Forms doesn't allow reading the reply cross-site; a network error is the only failure we can see
-      await fetch(G.action, { method: 'POST', mode: 'no-cors', body });
-      done();
-    } catch (e) {
-      submit.disabled = false; submit.firstElementChild.textContent = 'Send RSVP';
-      err.textContent = "Sorry, that didn't go through. Please try again or RSVP on WhatsApp below.";
+    // Google Forms never lets a website read its reply, so don't wait on it (in some phone browsers it never settles).
+    // sendBeacon hands the RSVP to the browser to deliver even if the guest closes the page straight away.
+    let queued = false;
+    try { queued = navigator.sendBeacon && navigator.sendBeacon(G.action, body); } catch (e) {}
+    if (!queued) {
+      try {
+        await Promise.race([
+          fetch(G.action, { method: 'POST', mode: 'no-cors', body, keepalive: true }),
+          new Promise(r => setTimeout(r, 3000))
+        ]);
+      } catch (e) {
+        submit.disabled = false; submit.firstElementChild.textContent = 'Send RSVP';
+        err.textContent = "Sorry, that didn't go through. Please check your connection, or RSVP on WhatsApp below.";
+        return;
+      }
     }
+    done();
   });
   function done() {
     form.hidden = true;
